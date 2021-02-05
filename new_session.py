@@ -15,11 +15,11 @@ def run(progress, ioloop):
 
     for i in range(total):
         time.sleep(1)
-        remaining = time.strftime('%H:%M:%S', time.gmtime(total-i))
-        s = "Session will expire in "+remaining
-        clear_output(wait=True)
-        display(HTML(s), display_id = True)
-        display(progress)
+        #remaining = time.strftime('%H:%M:%S', time.gmtime(total-i))
+        #s = "Session will expire in "+remaining
+        #clear_output(wait=True)
+        #display(HTML(s), display_id = True)
+        #display(progress)
         ioloop.add_callback(update_progress, i)
         
 
