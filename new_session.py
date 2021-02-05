@@ -11,8 +11,9 @@ def run(progress, ioloop):
     def update_progress(i, progress=progress):
         progress.value = i
 
-    for i in range(60):
+    for i in range(7200):
         time.sleep(1)
+
         ioloop.add_callback(update_progress, i)
 
 def start_session(*args, **kwargs):
