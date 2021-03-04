@@ -5,11 +5,11 @@ import electrostatics
 from electrostatics import PointCharge, ElectricField, Potential, GaussianCircle,LineCharge
 from electrostatics import finalize_plot
 
-def draw_E_and_V(charges,locations):
+def draw_E_and_V(charges,locations,background=False):
 
     XMIN, XMAX = -40, 40
-    YMIN, YMAX = -30, 30
-    ZOOM = 6
+    YMIN, YMAX = -40, 40
+    ZOOM = 5
     XOFFSET = 0
 
     electrostatics.init(XMIN, XMAX, YMIN, YMAX, ZOOM, XOFFSET)
@@ -50,13 +50,15 @@ def draw_E_and_V(charges,locations):
     ## Plotting ##
 
     # Electric field lines and potential contours
-    fig = pyplot.figure(figsize=(20,8))
+    fig = pyplot.figure(figsize=(20,9))
 
     pyplot.subplot(1, 2, 1)
 
     #fig = pyplot.figure(figsize=(8, 6))
     potential.plot()
-    field.plot()
+    potential.plot_color()
+    if background:
+        field.plot()
     for fieldline in fieldlines:
         fieldline.plot()
     for charge in charges:
@@ -68,7 +70,7 @@ def draw_E_and_V(charges,locations):
     pyplot.subplot(1, 2, 2)
 
     #fig = pyplot.figure(figsize=(8,6))
-    cmap = pyplot.cm.get_cmap('plasma')
+    cmap = pyplot.cm.get_cmap('hsv')
     pyplot.quiver(x, y, u, v, pivot='mid', cmap=cmap, scale=35)
     for charge in charges:
         charge.plot()

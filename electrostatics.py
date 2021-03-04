@@ -142,7 +142,7 @@ class PointCharge:
         """Plots the charge."""
         color = 'b' if self.q < 0 else 'r' if self.q > 0 else 'k'
         r = 0.1*(sqrt(fabs(self.q))/2 + 1)
-        r = 0.15*self.q
+        r = 0.3*self.q
         circle = pyplot.Circle(self.x, r, color=color, zorder=10)
         pyplot.gca().add_artist(circle)
 
@@ -358,7 +358,7 @@ class ElectricField:
                 # pylint: disable=unsupported-assignment-operation
                 z[i, j] = log10(self.magnitude([x[i, j], y[i, j]]))
         levels = arange(nmin, nmax+0.2, 0.2)
-        cmap = pyplot.cm.get_cmap('plasma')
+        cmap = pyplot.cm.get_cmap('GnBu')
         pyplot.contourf(x, y, numpy.clip(z, nmin, nmax),
                         10, cmap=cmap, levels=levels, extend='both')
 
@@ -373,6 +373,21 @@ class Potential:
     def magnitude(self, x):
         """Returns the magnitude of the potential."""
         return sum(charge.V(x) for charge in self.charges)
+
+    def plot_color(self, nmin=-3.5, nmax=1.5):
+        """Plots the field magnitude."""
+        x, y = meshgrid(
+            linspace(XMIN/ZOOM+XOFFSET, XMAX/ZOOM+XOFFSET, 200),
+            linspace(YMIN/ZOOM, YMAX/ZOOM, 200))
+        z = zeros_like(x)
+        for i in range(x.shape[0]):
+            for j in range(x.shape[1]):
+                # pylint: disable=unsupported-assignment-operation
+                z[i, j] = log10(abs(self.magnitude([x[i, j], y[i, j]])))
+        levels = arange(nmin, nmax+0.2, 0.2)
+        cmap = pyplot.cm.get_cmap('GnBu')
+        pyplot.contourf(x, y, numpy.clip(z, nmin, nmax),
+                        10, cmap=cmap, levels=levels, extend='both')
 
     def plot(self, zmin=-1.5, zmax=1.5, step=0.25, linewidth=1, linestyle=':'):
         """Plots the field magnitude."""
@@ -389,7 +404,7 @@ class Potential:
                 # pylint: disable=unsupported-assignment-operation
                 z[i, j] = self.magnitude([x[i, j], y[i, j]])
         # levels = arange(nmin, nmax+0.2, 0.2)
-        # cmap = pyplot.cm.get_cmap('plasma')
+        # cmap = pyplot.cm.get_cmap('GnBu')
         pyplot.contour(x, y, z, numpy.arange(zmin, zmax+step, step),
                        linewidths=linewidth, linestyles=linestyle, colors='k')
 
