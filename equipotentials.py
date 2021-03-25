@@ -5,7 +5,7 @@ import electrostatics
 from electrostatics import PointCharge, ElectricField, Potential, GaussianCircle,LineCharge
 from electrostatics import finalize_plot
 
-def draw_E_and_V(charges,locations,background=False):
+def draw_E_and_V(charges,locations,background=False,circlesize=True,lines=True):
 
     XMIN, XMAX = -40, 40
     YMIN, YMAX = -40, 40
@@ -28,6 +28,7 @@ def draw_E_and_V(charges,locations,background=False):
         g = GaussianCircle(charge.x, 0.1)
 
     # Create the field lines
+
         for x in g.fluxpoints(field, 12):
             fieldlines.append(field.line(x))
     fieldlines.append(field.line([10, 0]))
@@ -59,10 +60,12 @@ def draw_E_and_V(charges,locations,background=False):
     potential.plot_color()
     if background:
         field.plot()
-    for fieldline in fieldlines:
-        fieldline.plot()
+
+    if lines:
+        for fieldline in fieldlines:
+            fieldline.plot()
     for charge in charges:
-        charge.plot()
+        charge.plot(circlesize)
     finalize_plot()
     #fig.savefig('dipole-field-lines.pdf', transparent=True)
 

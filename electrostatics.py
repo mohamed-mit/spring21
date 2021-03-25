@@ -138,11 +138,16 @@ class PointCharge:
         """Returns True if x is close to the charge; false otherwise."""
         return norm(x-self.x) < self.R
 
-    def plot(self):
+    def plot(self,flag=True):
         """Plots the charge."""
-        color = 'b' if self.q < 0 else 'r' if self.q > 0 else 'k'
+        if flag:
+            color = 'b' if self.q < 0 else 'r' if self.q > 0 else 'k'
+        else:
+            color = 'r'
         r = 0.1*(sqrt(fabs(self.q))/2 + 1)
         r = 0.3*self.q
+        if not flag:
+            r = 0.3
         circle = pyplot.Circle(self.x, r, color=color, zorder=10)
         pyplot.gca().add_artist(circle)
 
