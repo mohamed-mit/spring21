@@ -7,10 +7,10 @@ def simulate_motion(q=0,m=1,vx=1,Ey=0,Bz=0,total_time=20,fns = []):
     if q!=0:
         scale = math.floor(math.log10(abs((q*vx*Bz+q*Ey)/m)))
         q = q*10**(-scale)
-    scene = canvas() 
+    scene = canvas()
     ######################################################
     #define parameters for the moving point charge
-    obj = sphere(radius = 1) 
+    obj = sphere(radius = 1)
     obj.charge = q
     obj.mass = m
     obj.pos = vector(0,0,0) #initial position vector
@@ -19,7 +19,7 @@ def simulate_motion(q=0,m=1,vx=1,Ey=0,Bz=0,total_time=20,fns = []):
     if obj.charge >0:
         obj.color = color.red
     ######################################################
-    #define the uniform E and B fields 
+    #define the uniform E and B fields
     E = vector(0,Ey,0)
     B = vector(0,0,Bz)
     ######################################################
@@ -49,7 +49,7 @@ def simulate_motion(q=0,m=1,vx=1,Ey=0,Bz=0,total_time=20,fns = []):
     final_time = total_time
     while t<final_time:
 
-        rate(600) #slow down the rate of visualization to 600 updates per sec
+        rate(1000) #slow down the rate of visualization to 600 updates per sec
         F = fns[0](obj.charge,obj.velocity,E,B) #calculate the net force on the charge
         r = fns[2](obj.pos,obj.velocity,obj.mass,F,dt)
         v = fns[1](obj.velocity,obj.mass,F,dt)
