@@ -1,7 +1,7 @@
 #DON'T ALTER/READ THIS CELL, JUST RUN IT AND MOVE ON :)
 import math
 from vpython import *
-def simulate_motion(q=0,m=1,vx=1,Ey=0,Bz=0,vy=0,total_time=20,fns = []):
+def simulate_motion(q=0,m=1,vx=1,Ey=0,Bz=0,vy=0,vz=0,total_time=20,fns = []):
     print("White arrows = E field, Yellow arrows = B field, Blue = negative charge and Red = positive charge")
     print("E and B fields are assumed to be uniform all over space.")
     if q!=0:
@@ -14,7 +14,7 @@ def simulate_motion(q=0,m=1,vx=1,Ey=0,Bz=0,vy=0,total_time=20,fns = []):
     obj.charge = q
     obj.mass = m
     obj.pos = vector(0,0,0) #initial position vector
-    obj.velocity = vector(vx,vy,0) #initial velocity vector
+    obj.velocity = vector(vx,vy,vz) #initial velocity vector
     obj.color = color.blue
     if obj.charge >0:
         obj.color = color.red
@@ -28,9 +28,9 @@ def simulate_motion(q=0,m=1,vx=1,Ey=0,Bz=0,vy=0,total_time=20,fns = []):
     trail = curve(color=color.white)
     max_y = 15
     max_x = 50
-    
+
     #unit vectors
-    
+
     if E.y != 0:
         mybox = box(pos=vector(0,max_y*E.y/abs(E.y),0), length=max_x, height=0.1, width=50,color=color.blue)
         mybox = box(pos=vector(0,-max_y*E.y/abs(E.y),0), length=max_x, height=0.1, width=50,color=color.red)
