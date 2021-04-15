@@ -15,21 +15,22 @@ def update_v(vi,m,F,dt):
 def update_position(ri,vi,m,F,dt):
     # calculates and returns the final position vector after a short time-step, i.e. r(t+dt) given:
     # ri = initial position v(t), vi = initial velocity v(t), m = mass, F = net force on the object and dt = time step
-    rf = ri + vi*dt + 0.5*F*dt*dt/m
+    rf = ri + update_v(vi,m,F,dt)*dt
     return rf
+
 
 def cyclotron(B=0,E=0):
     Emag = E
     Bmag = B
-    scene = canvas() 
+    scene = canvas()
     trail = curve(color=color.yellow)
     myell = ellipsoid(pos=vector(0,0,0),length=1, height=1, width=0.1,color=color.white,opacity = 0.3)
     box(pos=vector(0,0,0), length=0.2, height=1, width=0.1,color=color.black,opacity = 0.8)
     scene.lights = []
     distant_light(direction=vec( 1.1,  0.44,  0.88), color=color.gray(0.8))
-    obj = sphere(radius = 0.06) 
+    obj = sphere(radius = 0.06)
     obj.charge = 1
-    obj.mass = 1 
+    obj.mass = 1
     obj.pos = vector(-0.09,0,0) #initial position vector
     obj.velocity = vector(0,0,0) #initial velocity vector
     obj.color = color.blue
