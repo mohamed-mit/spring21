@@ -78,8 +78,8 @@ def analytical_sol (R, C, vb, qi, ti, tf, dt, charging  = True):
     
 def plot_Q_I(ts,qs,Is,qa,Ia):
     
- """ Plot all numerical (red) and analytical (scattered blue dots) values!"""
-#plt.scatter(ts,qs,c='r',s=6)
+    """ Plot all numerical (red) and analytical (scattered blue dots) values!"""
+    #plt.scatter(ts,qs,c='r',s=6)
     plt.plot(ts,qs,c='r')
     #plt.plot(ts[::10],qa[::10],c='b')
     plt.scatter(ts[::10],qa[::10],c='b', s=8)
