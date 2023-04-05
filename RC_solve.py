@@ -1,10 +1,11 @@
-# Initial Value Problem
+# Initial Value Problem:
 # Single loop RC circuit using Euler's method and analytical solutions.
 
 # Import libraries
 
 import numpy as np 
 import matplotlib.pyplot as plt
+
 
 
 def solve_charge_current (R, C, vb, qi, ti, tf, dt,dq_dt, current, charging = True):        
@@ -31,13 +32,13 @@ def solve_charge_current (R, C, vb, qi, ti, tf, dt,dq_dt, current, charging = Tr
         # Update values
 
         dqdt = dq_dt(q,R,C,vb)
-        q = q + dt * dqdt  # step Euler-Cromer integration
+        q = q + dt * dqdt  # step Euler integration
         t += dt # increment time
         ts.append(t) # append time to list
         qs.append(q) # append charge to list
         
-        I = current(dq_dt(q,R,C,vb), charging)
-        Is.append(I)    
+        I = current(dq_dt(q,R,C,vb), charging) # calculate current
+        Is.append(I)    # append current to list
 
     return (ts,qs,Is)    # return tuple of list of times, charges, currents
   
@@ -95,3 +96,7 @@ def plot_Q_I(ts,qs,Is,qa,Ia):
     plt.ylabel('Current(ampere)')
     plt.title('Current through C')
     plt.show()  
+    
+    
+    
+    
